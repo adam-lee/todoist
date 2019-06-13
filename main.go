@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"os/user"
 
 	"encoding/csv"
 	"encoding/json"
@@ -17,7 +18,8 @@ import (
 )
 
 var (
-	configPath, _      = os.UserHomeDir()
+	usr, _		   = user.Current()
+	configPath         = usr.HomeDir
 	default_cache_path = filepath.Join(configPath, ".todoist.cache.json")
 	CommandFailed      = errors.New("command failed")
 	IdNotFound         = errors.New("specified id not found")
@@ -167,8 +169,6 @@ func main() {
 			Aliases: []string{"t"},
 			Usage:   "Show today's tasks",
 			Action:  TodayList,
-			Flags: []cli.Flag{
-			},
 		},
 		{
 			Name:    "list",
