@@ -28,11 +28,9 @@ func TodayList(c *cli.Context) error {
 			continue
 		}
 		itemList = append(itemList, []string{
-			IdFormat(item),
 			PriorityFormat(item.Priority),
 			DueDateFormat(item.DateTime(), item.AllDay),
 			ProjectFormat(item.ProjectID, client.Store.Projects, projectColorHash, c),
-			item.LabelsString(client.Store.Labels),
 			ContentPrefix(client.Store.Items, item, c) + ContentFormat(item),
 		})
 	}
@@ -40,7 +38,7 @@ func TodayList(c *cli.Context) error {
 	defer writer.Flush()
 
 	if c.GlobalBool("header") {
-		writer.Write([]string{"ID", "Priority", "DueDate", "Project", "Labels", "Content"})
+		writer.Write([]string{"Priority", "DueDate", "Project", "Content"})
 	}
 
 	for _, strings := range itemList {
