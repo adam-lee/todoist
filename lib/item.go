@@ -155,7 +155,7 @@ func (item Item) UpdateParam() interface{} {
 		param["date_string"] = item.DateString
 	}
 	// TODO: more cool
-	if item.DateString == "null" {
+	if item.DateString == "" {
 		param["date_string"] = ""
 	}
 	if len(item.LabelIDs) != 0 {
